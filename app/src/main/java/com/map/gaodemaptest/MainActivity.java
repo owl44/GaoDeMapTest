@@ -3,10 +3,12 @@ package com.map.gaodemaptest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 
 public class MainActivity extends AppCompatActivity {
     MapView mMapView = null;
+    AMap aMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
         mMapView = (MapView) findViewById(R.id.map);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
+        //初始化地图控制器对象
+        if (aMap == null) {
+            aMap = mMapView.getMap();
+            //该方法在AMap类中提供
+            aMap.setMapCustomEnable(true);//true 开启; false 关闭
+        }
     }
 
     @Override
