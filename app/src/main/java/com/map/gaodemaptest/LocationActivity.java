@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class LocationActivity extends AppCompatActivity implements AMapLocationListener {
+public class LocationActivity extends AppCompatActivity  {
     MapView mMapView = null;
     AMap aMap;
 
@@ -101,11 +101,14 @@ public class LocationActivity extends AppCompatActivity implements AMapLocationL
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.
                 fromResource(R.drawable.gps_point));
         myLocationStyle.interval(2000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//只定位一次。
+
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         //aMap.getUiSettings().setMyLocationButtonEnabled(true);设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//只定位一次。
+
 //        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE) ;//定位一次，且将视角移动到地图中心点。
 //        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
 //        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);//连续定位、且将视角移动到地图中心点，地图依照设备方向旋转，定位点会跟随设备移动。（1秒1次定位）
@@ -270,30 +273,30 @@ public class LocationActivity extends AppCompatActivity implements AMapLocationL
             mMapView.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onLocationChanged(AMapLocation amapLocation) {
-        if (amapLocation != null) {
-            if (amapLocation.getErrorCode() == 0) {
-                //定位成功回调信息，设置相关消息
-                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                Double latitude = amapLocation.getLatitude();//获取纬度
-                Double longitude = amapLocation.getLongitude();//获取经度
-                amapLocation.getAccuracy();//获取精度信息
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(amapLocation.getTime());
-                df.format(date);//定位时间
-                LatLonPoint lat = new LatLonPoint(latitude, longitude);
-                CameraUpdate mUpdata = CameraUpdateFactory.newCameraPosition(
-                        //15是缩放比例，0是倾斜度，30显示比例
-                        new CameraPosition(new LatLng(lat.getLatitude(), lat.getLongitude()), 17, 0, 30));
-                aMap.moveCamera(mUpdata);
-
-            } else {
-                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError","location Error, ErrCode:"
-                        + amapLocation.getErrorCode() + ", errInfo:"
-                        + amapLocation.getErrorInfo());
-            }
-        }
-    }
+//    @Override
+//    public void onLocationChanged(AMapLocation amapLocation) {
+//        if (amapLocation != null) {
+//            if (amapLocation.getErrorCode() == 0) {
+//                //定位成功回调信息，设置相关消息
+//                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+//                Double latitude = amapLocation.getLatitude();//获取纬度
+//                Double longitude = amapLocation.getLongitude();//获取经度
+//                amapLocation.getAccuracy();//获取精度信息
+//                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                Date date = new Date(amapLocation.getTime());
+//                df.format(date);//定位时间
+//                LatLonPoint lat = new LatLonPoint(latitude, longitude);
+//                CameraUpdate mUpdata = CameraUpdateFactory.newCameraPosition(
+//                        //15是缩放比例，0是倾斜度，30显示比例
+//                        new CameraPosition(new LatLng(lat.getLatitude(), lat.getLongitude()), 17, 0, 30));
+//                aMap.moveCamera(mUpdata);
+//
+//            } else {
+//                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+//                Log.e("AmapError","location Error, ErrCode:"
+//                        + amapLocation.getErrorCode() + ", errInfo:"
+//                        + amapLocation.getErrorInfo());
+//            }
+//        }
+//    }
 }
