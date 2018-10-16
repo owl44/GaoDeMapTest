@@ -93,7 +93,6 @@ public class MarkerActivity extends AppCompatActivity implements AMap.OnMarkerCl
                 Toast.makeText(this, "点击了第"+i+"个marker", Toast.LENGTH_SHORT).show();
             }
         }
-
         return false;
     }
 
