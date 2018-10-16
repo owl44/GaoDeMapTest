@@ -53,7 +53,6 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.qq:
                 QQUp();
-                showShare();
                 break;
             case R.id.we_chat:
                 WeChatUp();
